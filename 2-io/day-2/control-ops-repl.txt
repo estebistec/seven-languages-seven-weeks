@@ -1,0 +1,183 @@
+Io 20110905
+Io> loop("getting dizzy..." println)
+getting dizzy...
+getting dizzy...
+getting dizzy...
+getting dizzy...
+getting dizzy...
+getting dizzy...
+getting dizzy...
+
+^Cgetting dizzy...
+IOVM:
+	Received signal. Setting interrupt flag.
+
+
+  current coroutine
+  ---------
+  Coroutine callStack                  A4_Exception.io 244
+  Coroutine backTraceString            A4_Exception.io 274
+  Coroutine showStack                  System.io 62
+  System userInterruptHandler          [unlabeled] 0
+
+Io> i := 1
+==> 1
+Io> while(i <= 11, i println; i = i + 1); "This one goes up to 11" println
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+This one goes up to 11
+==> This one goes up to 11
+Io> for(i, 1, 11, i println); "This one goes up to 11" println
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+This one goes up to 11
+==> This one goes up to 11
+Io> for(i, 1, 11, 2, i println); "This one goes up to 11" println
+1
+3
+5
+7
+9
+11
+This one goes up to 11
+==> This one goes up to 11
+Io> for(i, 1, 2, 1, i println, "extra argument")
+1
+2
+==> 2
+Io> for(i, 1, 2, i println, "extra argument")
+2
+==> extra argument
+Io> if(true, "It is true.", "It is false.")
+==> It is true.
+Io> if(false) then("It is true") else("It is false")
+==> nil
+Io> if(false) then("It is true." println) else("It is false." println)
+It is false.
+==> nil
+Io> OperatorTable
+==> OperatorTable_0x35a780:
+Operators
+  0   ? @ @@
+  1   **
+  2   % * /
+  3   + -
+  4   << >>
+  5   < <= > >=
+  6   != ==
+  7   &
+  8   ^
+  9   |
+  10  && and
+  11  or ||
+  12  ..
+  13  %= &= *= += -= /= <<= >>= ^= |=
+  14  return
+
+Assign Operators
+  ::= newSlot
+  :=  setSlot
+  =   updateSlot
+
+To add a new operator: OperatorTable addOperator("+", 4) and implement the + message.
+To add a new assign operator: OperatorTable addAssignOperator("=", "updateSlot") and implement the updateSlot message.
+Io> OperatorTable addOperator("xor", 11)
+==> OperatorTable_0x35a780:
+Operators
+  0   ? @ @@
+  1   **
+  2   % * /
+  3   + -
+  4   << >>
+  5   < <= > >=
+  6   != ==
+  7   &
+  8   ^
+  9   |
+  10  && and
+  11  or xor ||
+  12  ..
+  13  %= &= *= += -= /= <<= >>= ^= |=
+  14  return
+
+Assign Operators
+  ::= newSlot
+  :=  setSlot
+  =   updateSlot
+
+To add a new operator: OperatorTable addOperator("+", 4) and implement the + message.
+To add a new assign operator: OperatorTable addAssignOperator("=", "updateSlot") and implement the updateSlot message.
+
+Io> true xor := method(bool, if(bool, false, true))
+==> method(bool,
+    if(bool, false, true)
+)
+Io> false xor := method(bool, if(bool, true, false))
+==> method(bool,
+    if(bool, true, false)
+)
+Io> true xor true
+==> false
+Io> true xor false
+==> true
+Io> false xor true
+==> true
+Io> false xor false
+==> false
+Io> postOffice := Object clone
+==>  Object_0x3d5b50:
+
+Io> postOffice packageSender := method(call sender)
+==> method(
+    call sender
+)
+Io> mailer := Object clone
+==>  Object_0x2e2c00:
+
+Io> mailer deliver := method(postOffice packageSender)
+==> method(
+    postOffice packageSender
+)
+Io> mailer deliver
+==>  Object_0x2e2c00:
+  deliver          = method(...)
+
+Io> postOffice messageTarget := method(call target)
+==> method(
+    call target
+)
+Io> postOffice messageTarget
+==>  Object_0x3d5b50:
+  messageTarget    = method(...)
+  packageSender    = method(...)
+
+Io> postOffice messageArgs := method(call message arguments)
+==> method(
+    call message arguments
+)
+Io> postOffice messageName := method(call message name)
+==> method(
+    call message name
+)
+Io> postOffice messageArgs("one", 2, :three)
+==> list("one", 2, : three)
+Io> postOffice messageName
+==> messageName
