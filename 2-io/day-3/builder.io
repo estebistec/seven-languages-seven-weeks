@@ -1,11 +1,16 @@
-Builder := Object clone
+Builder := Object clone do (
+  indent := ""
+)
+
 Builder forward := method(
-  writeln("<", call message name, ">")
+  writeln(self indent, "<", call message name, ">")
+  self indent := self indent .. "  "
   call message arguments foreach(arg,
     content := self doMessage(arg);
-    if(content type == "Sequence", writeln(content))
+    if(content type == "Sequence", writeln(self indent .. content))
   )
-  writeln("</", call message name, ">")
+  self indent := self indent exSlice(0, -2)
+  writeln(self indent, "</", call message name, ">")
 )
 
 Builder ul(
