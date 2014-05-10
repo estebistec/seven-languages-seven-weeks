@@ -1,0 +1,23 @@
+Io 20110905
+Io> slower := Object clone
+==>  Object_0x31f1c0:
+
+Io> faster := Object clone
+==>  Object_0x389fe0:
+
+Io> slower start := method(wait(2); writeln("slowly"))
+==> method(
+    wait(2); writeln("slowly")
+)
+Io> faster start := method(wait(1); writeln("quickly"))
+==> method(
+    wait(1); writeln("quickly")
+)
+Io> slower start; faster start
+slowly
+quickly
+==> nil
+Io> slower @@start; faster @@start; wait(3)
+quickly
+slowly
+==> nil
